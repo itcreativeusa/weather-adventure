@@ -35,7 +35,7 @@ No special requirements
 
 Screenshot located in `assets/images` folder
 
-![weather-adventure](assets/images/screenshot.jpeg)
+![weather-adventure](assets/images/screenshot.jpg)
 
 ## Credits
 
