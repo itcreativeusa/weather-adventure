@@ -1,24 +1,14 @@
-# House-Hunters
+# Weather Adventure
 
 ## Description
 
 Link to deployed application
-https://neilmkflyingk.github.io/house-hunters
+https://neilmkflyingk.github.io/weather-adventure/
 
 Github link
-https://github.com/neilmkflyingk/house-hunters
+https://github.com/neilmkflyingk/weather-adventure
 
-
-This house-hunters app was created as a bootcamp student project group challenge. This app is a javascript property information finder. 
-By using geocoding, user can convert an address into geographic coordinates (latitude and longitude) that can be used to locate a place on a map. USer can then use the coordinates to display the data around that location such as nearby property information. The location will then be stored in the local storage for future reference.
-The code of this app was created from scratch. 
-
-House-hunters application uses two APIs to get search result : 
-
-1. Geocode API (https://geocode.maps.co/). Using this API, application receive latitude and longitude from the address user typed. 
-
-
-2. Attom API (https://api.developer.attomdata.com/docs). 
+This is a weather dashboard application with search functionality to find current weather conditions and the future weather outlook for multiple cities. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
 
 ## Table of Contents
 
@@ -27,15 +17,6 @@ House-hunters application uses two APIs to get search result :
 - [Requirements](#requirements)
 - [Credits](#credits)
 - [License](#license)
-
-## Future features
-
-1. School district information
-2. Traffic assesment
-3. Crime rates
-4. Sales History
-5. Entertainment
-6. Restaurants
 
 ## Installation
 
@@ -47,30 +28,20 @@ No special requirements
 
 ## Usage
 
-1. Fill in the address & press search button
+1. Fill in the city name & press search button
 2. Search results will appear
-3. If no address entered, user will see alert message 
+3. If no address entered, user will see alert message
 4. if nothing is found according to the search criteria - user will see the warning message
 
 Screenshot located in `assets/images` folder
 
-![house-hunters](assets/images/screenshot.jpeg)
+![weather-adventure](assets/images/screenshot.jpeg)
 
 ## Credits
 
-Geocode API https://geocode.maps.co/
+1. https://openweathermap.org/ - for weather API
 
-Attom API https://attomdata.com/
-
-Foundation CSS framework https://get.foundation/
-
-Icons https://icons8.com/
-
-Attom API (https://api.developer.attomdata.com/docs)
-
-Image background was taken from Unsplash website. Credits : https://unsplash.com/photos/4ojhpgKpS68
-
-
+Image background was taken from Unsplash website. https://unsplash.com/
 
 ## License
 
