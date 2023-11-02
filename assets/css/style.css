@@ -1,0 +1,148 @@
+:root {
+  /* Declare variables */
+  --dark-grey-color: #2e2f30;
+  --light-grey-color: #4a4b4c;
+}
+/*Background image upper part*/
+body {
+  margin: 0 auto;
+  background-image: url("../images/bg1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 100vh;
+}
+.main-section {
+  margin: 15% auto;
+}
+/*h1 header */
+h1 {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+/*h2 header */
+h2 {
+  color: white;
+}
+/*submit button search */
+.button {
+  background-image: linear-gradient(to right, #f9a514 0%, #f9d423 100%);
+  margin: 10px auto;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+/*submit button search hover */
+.button:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+/*result card*/
+
+h4 {
+  color: #4776e6;
+}
+
+/*result block on top & h3 header*/
+.search-results {
+  margin: 0 auto;
+  background-image: linear-gradient(to right, #f9a514 0%, #f9d423 100%);
+  padding: 10px 45px;
+}
+
+.result {
+  color: white;
+}
+/*search result card*/
+.result-card {
+  color: var(--dark-grey-color);
+  border: 1px solid #8a8a8a;
+  background: #fefefe;
+  /*background: rgba(46, 47, 48 , 0.6);*/
+}
+
+.result-card-content {
+  margin: 2%;
+}
+
+.hidden {
+  display: none;
+}
+
+.main-section-full-page {
+  margin: 50px;
+}
+.navigation {
+  background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  padding: 5px 5px 5px 10px;
+}
+.navigation a {
+  color: white;
+  font-style: normal;
+  font-weight: bold;
+}
+.navigation i,
+footer i {
+  font-style: normal;
+}
+footer {
+  background-color: var(--dark-grey-color);
+  padding: 5px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+footer a {
+  color: white;
+  font-size: 1.25rem;
+  font-style: normal;
+}
+
+.main {
+  height: 100%;
+}
+.card-section {
+  border: 1px solid #e6e6e6;
+  margin-bottom: 5px;
+}
+
+.card-section li {
+  background-color: #e6e6e6;
+  margin: 10px 0;
+  padding: 10px;
+  max-width: 300px;
+  list-style: none;
+}
+/*Warning message if no address found*/
+h5 {
+  color: orange;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0px 10%;
+}
+
+.list {
+  margin-bottom: 10%;
+}
+
+.form-input p {
+  color: red;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0px 20%;
+  font-size: 1.5rem;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather radar</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--links to CSS files foundation css framework-->
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/foundation.css" />
+    <!--links to icon files foundation css framework-->
+    <link
+      rel="stylesheet"
+      href="assets/foundation-icons/foundation-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/foundation-icons/foundation-icons.eot"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/foundation-icons/foundation-icons.ttf"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/foundation-icons/foundation-icons.woff"
+    />
+    <!--links to font-awesome icons-->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <!--custom CSS file-->
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <div class="grid-container main-section">
+      <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+          <!--h1 header-->
+          <h1 class="text-center">Weather radar🌤️</h1>
+        </div>
+      </div>
+      <!--h2 header-->
+      <h2 class="text-center">
+        Find out the weather, temperature, humidity and more in your area
+      </h2>
+      <!--form-->
+      <form id="address-form">
+        <div class="grid-x grid-padding-x">
+          <div class="form-input cell">
+            <!--input-->
+            <input
+              type="text"
+              class="street-address-form cell input-group-field"
+              id="address-search"
+              name="address-search"
+              placeholder="Enter Street Address, City and Zip Code"
+            />
+            <!--search button-->
+            <button id="button" class="button large">Search & Shine</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--results block-->
+    <div class="result hidden">
+      <div class="search-results">
+        <div class="grid-x grid-padding-x">
+          <!--search result h3 block & icon-->
+          <div class="large-12 cell">
+            <h3>Search results <i class="fi-magnifying-glass"></i></h3>
+          </div>
+        </div>
+      </div>
+      <!-- here adds search-result & footer dynamically generated in JS file . it shows on click submit-->
+    </div>
+    <!--links to JS files foundation css framework-->
+    <script src="assets/js/vendor/jquery.js"></script>
+    <script src="assets/js/vendor/what-input.js"></script>
+    <script src="assets/js/vendor/foundation.js"></script>
+    <!--custom JS file-->
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
