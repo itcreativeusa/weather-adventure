@@ -24,14 +24,22 @@ function fetchHandler(event) {
       return response.json();
     })
     .then(function (data) {
-      console.log("geocode-response: ", data);
-      latitude = data[0].lat;
-      longitude = data[0].lon;
-      console.log("Latitude:", latitude);
-      console.log("Longitude:", longitude);
+      // Inside the fetchHandler function after getting latitude and longitude from geocode API
+      latitude = parseFloat(data[0].lat).toFixed(4);
+      longitude = parseFloat(data[0].lon).toFixed(4);
+      console.log("Raw Longitude:", data[0].lon);
 
-      console.log("geocode-raw-response: ", data);
+      // Adjust the longitude to be positive if it's negative
+      if (longitude < 0) {
+        longitude = Math.abs(longitude);
+      }
 
+      // Convert latitude and longitude to integers
+      latitude = parseInt(latitude, 10);
+      longitude = parseInt(longitude, 10);
+
+      console.log("Final Latitude:", latitude);
+      console.log("Final Longitude:", longitude);
       /* OpenWeatherMap API */
       fetch(
         "https://api.openweathermap.org/data/2.5/weather?lat=" +
@@ -61,9 +69,6 @@ function fetchHandler(event) {
           var weatherIcon = weatherData.weather[0].icon;
           var weatherIconURL =
             "http://openweathermap.org/img/w/" + weatherIcon + ".png";
-          var dt = weatherData.dt;
-          var sysSunrise = weatherData.sys.sunrise;
-          var sysSunset = weatherData.sys.sunset;
 
           console.log("Temperature:", temperature);
           console.log("Feels Like:", feelsLike);
@@ -74,9 +79,6 @@ function fetchHandler(event) {
           console.log("Weather:", weather);
           console.log("Weather Icon:", weatherIcon);
           console.log("Weather Icon URL:", weatherIconURL);
-          console.log("Date:", dt);
-          console.log("Sunrise:", sysSunrise);
-          console.log("Sunset:", sysSunset);
 
           // Display weather information
           $(".card-section").html(""); // Clear existing content
@@ -136,7 +138,7 @@ var resultCardMap =
   "<div class='medium-6 cell card-map'><h4>Weather map</h4><img id='weatherMap' src='' alt='Weather Map'></div>";
 $(".result-card-content").append(resultCardMap);
 
-/* Function to fetch and set OpenWeatherMap tile */
+/* Function to fetch and set the OpenWeatherMap tile with user input coordinates */
 function fetchWeatherMap(latitude, longitude) {
   var layer = "temp_new";
   var zoom = 10; // Adjust the zoom level as needed
@@ -147,22 +149,14 @@ function fetchWeatherMap(latitude, longitude) {
     return;
   }
 
-  // Convert latitude and longitude to integers
-  var intLatitude = Math.floor(latitude);
-  var intLongitude = Math.floor(longitude);
-
-  // Ensure that x, y, and z are positive integers
-  if (intLatitude < 0 || intLongitude < 0 || zoom < 0) {
-    console.error("Incorrect tile coordinates");
-    return;
-  }
-
   var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
 
-  var weatherMapURL = `https://tile.openweathermap.org/${layer}/${zoom}/${intLatitude}/${intLongitude}.png?appid=${apiKey}`;
+  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${longitude}.png?appid=${apiKey}`;
 
   // Log the weatherMapURL to the console
   console.log("Weather Map URL:", weatherMapURL);
+  console.log("Latitude:", latitude);
+  console.log("Longitude:", longitude);
 
   // Set the source of the weather map image
   $("#weatherMap").attr("src", weatherMapURL);
