@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Weather radar</title>
     <meta charset="UTF-8" />
@@ -7,6 +7,7 @@
     <!--links to CSS files foundation css framework-->
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/foundation.css" />
+
     <!--links to icon files foundation css framework-->
     <link
       rel="stylesheet"
@@ -32,13 +33,27 @@
     <!--custom CSS file-->
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
-
   <body>
     <div class="grid-container main-section">
       <div class="grid-x grid-padding-x">
+        <!--video background-->
+       <!--<div class="video-container">
+          <video id="background-video" loop muted autoplay></video>
+        </div>-->
+
+        <!--audio controls-->
+        <div class="large-12 cell">
+          <audio controls loop autoplay style="margin-top: 10px;">
+            <!-- If the audio is hosted on your server -->
+            <source src="assets/audio/music.mp3" type="audio/mp3" />
+
+            Your browser does not support the audio tag.
+          </audio>
+        </div>
+
         <div class="large-12 cell">
           <!--h1 header-->
-          <h1 class="text-center">Weather radar🌤️</h1>
+          <h1 class="text-center">Weather adventure🌤️</h1>
         </div>
       </div>
       <!--h2 header-->
@@ -55,7 +70,7 @@
               class="street-address-form cell input-group-field"
               id="address-search"
               name="address-search"
-              placeholder="Enter Street Address, City and Zip Code"
+              placeholder="Please enter city name"
             />
             <!--search button-->
             <button id="button" class="button large">Search & Shine</button>
@@ -73,13 +88,19 @@
           </div>
         </div>
       </div>
-      <!-- here adds search-result & footer dynamically generated in JS file . it shows on click submit-->
+      <!-- here adds search-result dynamically generated in JS file . it shows on click Search & Shine-->
     </div>
-    <!--links to JS files foundation css framework-->
-    <script src="assets/js/vendor/jquery.js"></script>
-    <script src="assets/js/vendor/what-input.js"></script>
-    <script src="assets/js/vendor/foundation.js"></script>
-    <!--custom JS file-->
-    <script src="assets/js/script.js"></script>
-  </body>
+  </div>
+  <footer class="text-center">
+    <a href="https://github.com/neilmkflyingk/house-hunters"
+      ><i class="fi-social-github"> Kateryna Stetsenko</i></a
+    >
+  </footer>
+  <!--links to JS files foundation css framework-->
+  <script src="assets/js/vendor/jquery.js"></script>
+  <script src="assets/js/vendor/what-input.js"></script>
+  <script src="assets/js/vendor/foundation.js"></script>
+  <!--custom JS file-->
+  <script src="assets/js/script.js"></script>
+</body>
 </html>

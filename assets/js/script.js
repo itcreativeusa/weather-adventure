@@ -1,18 +1,25 @@
-/*Declare variables*/
-var button = document.querySelector("#button");
-button.addEventListener("click", fetchHandler);
+/* Declare variables */
 var latitude;
 var longitude;
-var listings = [];
+var button = document.querySelector("#button");
+button.addEventListener("click", fetchHandler);
 
-/*Function start fetch geocode API & OpenWeatherMap API on click search button */
+/* Function start fetch geocode API & OpenWeatherMap API on click search button */
 function fetchHandler(event) {
   event.preventDefault();
   var address = document.getElementById("address-search").value;
-  console.log("address-input:", address);
 
-  /*Fetch. Get the longitude and latitude from the address entered by the user*/
-  fetch("https://geocode.maps.co/search?q=" + address)
+  // Capitalize each word in the address
+  var capitalizedAddress = address
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  console.log("address-input:", capitalizedAddress);
+
+  /* Fetch. Get the longitude and latitude from the address entered by the user */
+  fetch("https://geocode.maps.co/search?q=" + capitalizedAddress)
     .then(function (response) {
       return response.json();
     })
@@ -23,13 +30,15 @@ function fetchHandler(event) {
       console.log("Latitude:", latitude);
       console.log("Longitude:", longitude);
 
-      /* Replace Zillow API call with OpenWeatherMap API */
+      console.log("geocode-raw-response: ", data);
+
+      /* OpenWeatherMap API */
       fetch(
         "https://api.openweathermap.org/data/2.5/weather?lat=" +
           latitude +
           "&lon=" +
           longitude +
-          "&appid=393078d647ab46db0fe4c5d56b489027"
+          "&units=imperial&appid=a89d772f92e60a988c309ad27ee68c1c"
       )
         .then(function (response) {
           return response.json();
@@ -37,46 +46,72 @@ function fetchHandler(event) {
         .then(function (weatherData) {
           console.log("weather-response:", weatherData);
 
+          console.log("weather-raw-response:", weatherData);
+
           // Display or process the weather information as needed
           var temperature = weatherData.main.temp;
+          var feelsLike = weatherData.main.feels_like;
           var humidity = weatherData.main.humidity;
+
           var windSpeed = weatherData.wind.speed;
-          var weatherDescription = weatherData.weather[0].description;
-          var pressure = weatherData.main.pressure;
+          var windDirection = weatherData.wind.deg;
+          var clouds = weatherData.clouds.all;
           var visibility = weatherData.visibility;
+          var weather = weatherData.weather[0].main;
+          var weatherIcon = weatherData.weather[0].icon;
+          var weatherIconURL =
+            "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+          var dt = weatherData.dt;
+          var sysSunrise = weatherData.sys.sunrise;
+          var sysSunset = weatherData.sys.sunset;
 
-          // Continue with your existing code to display or process weather information...
-
-          // Clear existing content
-          $(".card-section").empty();
+          console.log("Temperature:", temperature);
+          console.log("Feels Like:", feelsLike);
+          console.log("Humidity:", humidity);
+          console.log("Wind Speed:", windSpeed);
+          console.log("Clouds:", clouds);
+          console.log("Visibility:", visibility);
+          console.log("Weather:", weather);
+          console.log("Weather Icon:", weatherIcon);
+          console.log("Weather Icon URL:", weatherIconURL);
+          console.log("Date:", dt);
+          console.log("Sunrise:", sysSunrise);
+          console.log("Sunset:", sysSunset);
 
           // Display weather information
+          $(".card-section").html(""); // Clear existing content
           $(".card-section").append(
-            "<h4>Weather Information</h4>",
-            "<p>Temperature: " + temperature + " &#8451;</p>",
+            "<h4>Weather Information in " + capitalizedAddress + "</h4>",
+            "<p>Temperature: " + temperature + " &#8457;</p>",
+            "<p>Feels Like: " + feelsLike + " &#8457;</p>",
             "<p>Humidity: " + humidity + " %</p>",
             "<p>Wind Speed: " + windSpeed + " m/s</p>",
-            "<p>Pressure: " + pressure + " hPa</p>",
+            "<p>Wind Direction: " + windDirection + " &#176;</p>",
+            "<p>Clouds: " + clouds + " %</p>",
             "<p>Visibility: " + visibility + " m</p>",
-            "<p>Weather: " + weatherDescription + "</p>"
+            "<p>Weather: " +
+              weather +
+              "<img src='" +
+              weatherIconURL +
+              "' alt='Weather Icon'></p>"
           );
+
+          // Call the function to fetch and set the OpenWeatherMap tile with user input coordinates
+          fetchWeatherMap(latitude, longitude);
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.error("Error fetching weather data:", error);
         });
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.error("Error fetching geocode data:", error);
     });
 }
-
-/* Function show results on click or alert if empty*/
+/* Function show results on click or alert if empty */
 $(document).ready(function () {
   $("button").click(function () {
     if (!$("#address-search").val()) {
-      $(".form-input").append(
-        "<p>Enter Street Address, City and Zip Code!</p>"
-      );
+      $(".form-input").append("<p>Please enter the city name</p>");
     } else {
       $(".result").removeClass("hidden");
     }
@@ -86,22 +121,52 @@ $(document).ready(function () {
   });
 });
 
-/* Create & add elements using jquery*/
+/* Create & add elements using jQuery with Foundation classes */
 var resultCardBlock = "<div class='result-card'></div>";
 $(".result").append(resultCardBlock);
 var resultCardContent =
   "<div class='grid-x grid-margin-x result-card-content'></div>";
 $(".result-card").append(resultCardContent);
-var resultCardTitle = "<div class='card-section'></div>";
-$(".result-card-content").append(resultCardTitle);
-/*Create footer with github link*/
-var footer =
-  "<footer class='text-center'><a href='https://github.com/neilmkflyingk/house-hunters'><i class='fi-social-github'>Kateryna Stetsenko</i></a></footer>";
-$(".result").append(footer);
 
-$(function () {
-  loadData();
-});
+// Foundation classes for medium screens, adjust as needed
+var resultCardSection = "<div class='medium-6 cell card-section'></div>";
+$(".result-card-content").append(resultCardSection);
+
+var resultCardMap =
+  "<div class='medium-6 cell card-map'><h4>Weather map</h4><img id='weatherMap' src='' alt='Weather Map'></div>";
+$(".result-card-content").append(resultCardMap);
+
+/* Function to fetch and set OpenWeatherMap tile */
+function fetchWeatherMap(latitude, longitude) {
+  var layer = "temp_new";
+  var zoom = 10; // Adjust the zoom level as needed
+
+  // Ensure that latitude and longitude are valid numbers
+  if (isNaN(latitude) || isNaN(longitude)) {
+    console.error("Invalid latitude or longitude");
+    return;
+  }
+
+  // Convert latitude and longitude to integers
+  var intLatitude = Math.floor(latitude);
+  var intLongitude = Math.floor(longitude);
+
+  // Ensure that x, y, and z are positive integers
+  if (intLatitude < 0 || intLongitude < 0 || zoom < 0) {
+    console.error("Incorrect tile coordinates");
+    return;
+  }
+
+  var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
+
+  var weatherMapURL = `https://tile.openweathermap.org/${layer}/${zoom}/${intLatitude}/${intLongitude}.png?appid=${apiKey}`;
+
+  // Log the weatherMapURL to the console
+  console.log("Weather Map URL:", weatherMapURL);
+
+  // Set the source of the weather map image
+  $("#weatherMap").attr("src", weatherMapURL);
+}
 
 /*Local storage*/
 function loadData() {
@@ -109,3 +174,4 @@ function loadData() {
   var saveAddress = localStorage.getItem("listing");
   input.value = saveAddress;
 }
+loadData();
