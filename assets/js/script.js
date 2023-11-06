@@ -58,6 +58,11 @@ function fetchHandler(event) {
 
           // Display or process the weather information as needed
           var temperature = weatherData.main.temp;
+
+          // Display or process the weather information as needed
+          var temperature = weatherData.main.temp;
+          var weatherCondition = weatherData.weather[0].main;
+
           var feelsLike = weatherData.main.feels_like;
           var humidity = weatherData.main.humidity;
 
@@ -98,6 +103,9 @@ function fetchHandler(event) {
               "' alt='Weather Icon'></p>"
           );
 
+          // Call the function to display clothing suggestions
+          displayClothingSuggestions(temperature, weatherCondition);
+
           // Call the function to fetch and set the OpenWeatherMap tile with user input coordinates
           fetchWeatherMap(latitude, longitude);
         })
@@ -108,6 +116,61 @@ function fetchHandler(event) {
     .catch((error) => {
       console.error("Error fetching geocode data:", error);
     });
+}
+
+/* Function to display clothing suggestions */
+function displayClothingSuggestions(temperature, weatherCondition) {
+  var clothingSuggestion = "";
+
+  // Clothing suggestions based on temperature
+  if (temperature > 90) {
+    clothingSuggestion += "It's hot! Wear light clothing and sunscreen. ";
+  } else if (temperature > 80) {
+    clothingSuggestion +=
+      "It's warm! T-shirt and shorts would be comfortable. ";
+  } else if (temperature > 70) {
+    clothingSuggestion += "It's cool! Consider a jacket or sweater. ";
+  } else if (temperature > 60) {
+    clothingSuggestion += "It's cold! Bundle up with a warm jacket and hat. ";
+  } else if (temperature > 50) {
+    clothingSuggestion += "It's cold! Bundle up with a warm jacket and hat. ";
+  } else {
+    clothingSuggestion += "It's too cold! Stay indoors and wear a heavy coat ";
+  }
+
+  // Clothing suggestions based on weather condition
+  switch (weatherCondition) {
+    case "Rain":
+      clothingSuggestion +=
+        "It's raining! Don't forget your umbrella and waterproof jacket. ";
+      break;
+    case "Snow":
+      clothingSuggestion +=
+        "It's snowing! Bundle up with a heavy coat and snow boots. ";
+      break;
+    case "Thunderstorm":
+      clothingSuggestion +=
+        "Thunderstorm alert! Stay indoors and avoid heavy clothing. ";
+      break;
+    case "Clear":
+      clothingSuggestion +=
+        "Clear skies! Sunglasses and a light outfit would be great. ";
+      break;
+    case "Clouds":
+      clothingSuggestion +=
+        "Partly cloudy! Dress comfortably with a light jacket. ";
+      break;
+    case "Mist":
+      clothingSuggestion += "Mist! Wear a rain jacket and waterproof boots. ";
+      break;
+
+    default:
+      clothingSuggestion +=
+        "Weather conditions are diverse! Dress accordingly. ";
+  }
+
+  // Display the clothing suggestions
+  $(".clothing-suggestions").html(clothingSuggestion);
 }
 /* Function show results on click or alert if empty */
 $(document).ready(function () {
@@ -140,8 +203,8 @@ $(".result-card-content").append(resultCardMap);
 
 /* Function to fetch and set the OpenWeatherMap tile with user input coordinates */
 function fetchWeatherMap(latitude, longitude) {
-  var layer = "temp_new";
-  var zoom = 10; // Adjust the zoom level as needed
+  var layer = "temp";
+  var zoom = 10;
 
   // Ensure that latitude and longitude are valid numbers
   if (isNaN(latitude) || isNaN(longitude)) {
