@@ -60,9 +60,9 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   }
   // Display the clothing suggestions directly in the card-section
   $(".card-section").append(
-    "<h5>🌞 What to wear today:</h5><p class='clothing-suggestions'>" +
+    "<div class='clothing-suggestions'> <h5>🌞 What to wear today:</h5><p>" +
       clothingSuggestion +
-      "</p>"
+      "</p></div>"
   );
 }
 
@@ -200,6 +200,9 @@ $(".result-card-content").append(resultCardMap);
 function fetchWeatherMap(latitude, longitude) {
   var layer = "temp";
   var zoom = 10;
+  if (longitude < 0) {
+    longitude = Math.abs(longitude);
+  }
 
   // Convert latitude and longitude to integers
   latitude = parseInt(latitude, 10);
