@@ -2,11 +2,11 @@
 
 ## Description
 
-Link to deployed application
-https://neilmkflyingk.github.io/weather-adventure/
+Link to a deployed application
+
 
 Github link
-https://github.com/neilmkflyingk/weather-adventure
+https://github.com/itcreativeusa/weather-adventure
 
 This is a weather dashboard application with search functionality to find current weather conditions and the future weather outlook for multiple cities. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
 
@@ -28,12 +28,12 @@ No special requirements
 
 ## Usage
 
-1. Fill in the city name & press search button
+1. Type the city name & press search button
 2. Search results will appear
-3. If no address entered, user will see alert message
-4. if nothing is found according to the search criteria - user will see the warning message
+3. If no address is entered, the user will see an alert message
+4. if nothing is found according to the search criteria - the user will see the warning message
 
-Screenshot located in `assets/images` folder
+The screenshot is located in the `assets/images` folder
 
 ![weather-adventure](assets/images/screenshot.jpg)
 
@@ -41,7 +41,7 @@ Screenshot located in `assets/images` folder
 
 1. https://openweathermap.org/ - for weather API
 
-Image background was taken from Unsplash website. https://unsplash.com/
+The image background was taken from the Unsplash website. https://unsplash.com/
 
 ## License
 
