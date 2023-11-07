@@ -4,138 +4,28 @@ var longitude;
 var button = document.querySelector("#button");
 button.addEventListener("click", fetchHandler);
 
-/* Function start fetch geocode API & OpenWeatherMap API on click search button */
-function fetchHandler(event) {
-  event.preventDefault();
-  var address = document.getElementById("address-search").value;
-
-  // Capitalize each word in the address
-  var capitalizedAddress = address
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-
-  console.log("address-input:", capitalizedAddress);
-
-  /* Fetch. Get the longitude and latitude from the address entered by the user */
-  fetch("https://geocode.maps.co/search?q=" + capitalizedAddress)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // Inside the fetchHandler function after getting latitude and longitude from geocode API
-      latitude = parseFloat(data[0].lat).toFixed(4);
-      longitude = parseFloat(data[0].lon).toFixed(4);
-      console.log("Raw Longitude:", data[0].lon);
-
-      // Adjust the longitude to be positive if it's negative
-      if (longitude < 0) {
-        longitude = Math.abs(longitude);
-      }
-
-      // Convert latitude and longitude to integers
-      latitude = parseInt(latitude, 10);
-      longitude = parseInt(longitude, 10);
-
-      console.log("Final Latitude:", latitude);
-      console.log("Final Longitude:", longitude);
-      /* OpenWeatherMap API */
-      fetch(
-        "https://api.openweathermap.org/data/2.5/weather?lat=" +
-          latitude +
-          "&lon=" +
-          longitude +
-          "&units=imperial&appid=a89d772f92e60a988c309ad27ee68c1c"
-      )
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (weatherData) {
-          console.log("weather-response:", weatherData);
-
-          console.log("weather-raw-response:", weatherData);
-
-          // Display or process the weather information as needed
-          var temperature = weatherData.main.temp;
-
-          // Display or process the weather information as needed
-          var temperature = weatherData.main.temp;
-          var weatherCondition = weatherData.weather[0].main;
-
-          var feelsLike = weatherData.main.feels_like;
-          var humidity = weatherData.main.humidity;
-
-          var windSpeed = weatherData.wind.speed;
-          var windDirection = weatherData.wind.deg;
-          var clouds = weatherData.clouds.all;
-          var visibility = weatherData.visibility;
-          var weather = weatherData.weather[0].main;
-          var weatherIcon = weatherData.weather[0].icon;
-          var weatherIconURL =
-            "http://openweathermap.org/img/w/" + weatherIcon + ".png";
-
-          console.log("Temperature:", temperature);
-          console.log("Feels Like:", feelsLike);
-          console.log("Humidity:", humidity);
-          console.log("Wind Speed:", windSpeed);
-          console.log("Clouds:", clouds);
-          console.log("Visibility:", visibility);
-          console.log("Weather:", weather);
-          console.log("Weather Icon:", weatherIcon);
-          console.log("Weather Icon URL:", weatherIconURL);
-
-          // Display weather information
-          $(".card-section").html(""); // Clear existing content
-          $(".card-section").append(
-            "<h4>Weather Information in " + capitalizedAddress + "</h4>",
-            "<p>Temperature: " + temperature + " &#8457;</p>",
-            "<p>Feels Like: " + feelsLike + " &#8457;</p>",
-            "<p>Humidity: " + humidity + " %</p>",
-            "<p>Wind Speed: " + windSpeed + " m/s</p>",
-            "<p>Wind Direction: " + windDirection + " &#176;</p>",
-            "<p>Clouds: " + clouds + " %</p>",
-            "<p>Visibility: " + visibility + " m</p>",
-            "<p>Weather: " +
-              weather +
-              "<img src='" +
-              weatherIconURL +
-              "' alt='Weather Icon'></p>"
-          );
-
-          // Call the function to display clothing suggestions
-          displayClothingSuggestions(temperature, weatherCondition);
-
-          // Call the function to fetch and set the OpenWeatherMap tile with user input coordinates
-          fetchWeatherMap(latitude, longitude);
-        })
-        .catch((error) => {
-          console.error("Error fetching weather data:", error);
-        });
-    })
-    .catch((error) => {
-      console.error("Error fetching geocode data:", error);
-    });
-}
-
 /* Function to display clothing suggestions */
 function displayClothingSuggestions(temperature, weatherCondition) {
   var clothingSuggestion = "";
 
   // Clothing suggestions based on temperature
   if (temperature > 90) {
-    clothingSuggestion += "It's hot! Wear light clothing and sunscreen. ";
+    clothingSuggestion +=
+      "It's hot! Consider light and breathable clothing. Don't forget sunscreen. ";
   } else if (temperature > 80) {
     clothingSuggestion +=
       "It's warm! T-shirt and shorts would be comfortable. ";
   } else if (temperature > 70) {
-    clothingSuggestion += "It's cool! Consider a jacket or sweater. ";
+    clothingSuggestion +=
+      "It's cool! A light jacket or sweater might be nice. ";
   } else if (temperature > 60) {
-    clothingSuggestion += "It's cold! Bundle up with a warm jacket and hat. ";
+    clothingSuggestion += "It's a bit cold. Wear a jacket. ";
   } else if (temperature > 50) {
     clothingSuggestion += "It's cold! Bundle up with a warm jacket and hat. ";
+  } else if (temperature > 40) {
+    clothingSuggestion += "It's too cold!Wear a heavy coat and hat. ";
   } else {
-    clothingSuggestion += "It's too cold! Stay indoors and wear a heavy coat ";
+    clothingSuggestion += "It's freezing! Wear a heavy coat, hat, and gloves. ";
   }
 
   // Clothing suggestions based on weather condition
@@ -168,10 +58,115 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       clothingSuggestion +=
         "Weather conditions are diverse! Dress accordingly. ";
   }
-
-  // Display the clothing suggestions
-  $(".clothing-suggestions").html(clothingSuggestion);
+  // Display the clothing suggestions directly in the card-section
+  $(".card-section").append(
+    "<h5>🌞 What to wear today:</h5><p class='clothing-suggestions'>" +
+      clothingSuggestion +
+      "</p>"
+  );
 }
+
+/* Function start fetch geocode API & OpenWeatherMap API on click search button */
+function fetchHandler(event) {
+  event.preventDefault();
+  var address = document.getElementById("address-search").value;
+
+  // Capitalize each word in the address
+  var capitalizedAddress = address
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  console.log("address-input:", capitalizedAddress);
+
+  /* Fetch. Get the longitude and latitude from the address entered by the user */
+  fetch("https://geocode.maps.co/search?q=" + capitalizedAddress)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // Inside the fetchHandler function after getting latitude and longitude from geocode API
+      if (data && data.length > 0) {
+        latitude = data[0].lat;
+        longitude = data[0].lon;
+      } else {
+        console.error("Invalid geocode data:", data);
+      }
+    })
+    .then(function () {
+      console.log("Latitude:", latitude);
+      console.log("Longitude:", longitude);
+      /* OpenWeatherMap API */
+      return fetch(
+        "https://api.openweathermap.org/data/2.5/weather?lat=" +
+          latitude +
+          "&lon=" +
+          longitude +
+          "&units=imperial&appid=a89d772f92e60a988c309ad27ee68c1c"
+      );
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (weatherData) {
+      console.log("weather-response:", weatherData);
+
+      // Display or process the weather information as needed
+      var temperature = weatherData.main.temp;
+      var weatherCondition = weatherData.weather[0].main;
+
+      var feelsLike = weatherData.main.feels_like;
+      var humidity = weatherData.main.humidity;
+
+      var windSpeed = weatherData.wind.speed;
+      var windDirection = weatherData.wind.deg;
+      var clouds = weatherData.clouds.all;
+      var visibility = weatherData.visibility;
+      var weather = weatherData.weather[0].main;
+      var weatherIcon = weatherData.weather[0].icon;
+      var weatherIconURL =
+        "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+
+      console.log("Temperature:", temperature);
+      console.log("Feels Like:", feelsLike);
+      console.log("Humidity:", humidity);
+      console.log("Wind Speed:", windSpeed);
+      console.log("Clouds:", clouds);
+      console.log("Visibility:", visibility);
+      console.log("Weather:", weather);
+      console.log("Weather Icon:", weatherIcon);
+      console.log("Weather Icon URL:", weatherIconURL);
+
+      // Display weather information
+      $(".card-section").html(""); // Clear existing content
+      $(".card-section").append(
+        "<h4>Weather Information in " + capitalizedAddress + "</h4>",
+        "<p>Temperature: " + temperature + " &#8457;</p>",
+        "<p>Feels Like: " + feelsLike + " &#8457;</p>",
+        "<p>Humidity: " + humidity + " %</p>",
+        "<p>Wind Speed: " + windSpeed + " m/s</p>",
+        "<p>Wind Direction: " + windDirection + " &#176;</p>",
+        "<p>Clouds: " + clouds + " %</p>",
+        "<p>Visibility: " + visibility + " m</p>",
+        "<p>Weather: " +
+          weather +
+          "<img src='" +
+          weatherIconURL +
+          "' alt='Weather Icon'></p>"
+      );
+
+      // Call the function to display clothing suggestions
+      displayClothingSuggestions(temperature, weatherCondition);
+
+      // Call the function to fetch and set the OpenWeatherMap tile with user input coordinates
+      fetchWeatherMap(latitude, longitude);
+    })
+    .catch((error) => {
+      console.error("Error fetching weather or geocode data:", error);
+    });
+}
+
 /* Function show results on click or alert if empty */
 $(document).ready(function () {
   $("button").click(function () {
@@ -206,6 +201,10 @@ function fetchWeatherMap(latitude, longitude) {
   var layer = "temp";
   var zoom = 10;
 
+  // Convert latitude and longitude to integers
+  latitude = parseInt(latitude, 10);
+  longitude = parseInt(longitude, 10);
+
   // Ensure that latitude and longitude are valid numbers
   if (isNaN(latitude) || isNaN(longitude)) {
     console.error("Invalid latitude or longitude");
@@ -225,7 +224,7 @@ function fetchWeatherMap(latitude, longitude) {
   $("#weatherMap").attr("src", weatherMapURL);
 }
 
-/*Local storage*/
+/* Local storage */
 function loadData() {
   var input = document.getElementById("address-search");
   var saveAddress = localStorage.getItem("listing");
