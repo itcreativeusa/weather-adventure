@@ -37,19 +37,18 @@ function displayClothingSuggestions(temperature, weatherCondition) {
     clothingSuggestion += "Chilly weather! Grab a light jacket or sweater. ";
   } else if (temperature > 50) {
     clothingSuggestion +=
-      "Cold alert! Bundle up with a warm jacket and sweater. ";
+      "Cold a bit. Bundle up with a warm jacket and sweater. ";
   } else if (temperature > 45) {
     clothingSuggestion +=
       "Brisk and cold! Insulated outerwear will keep you warm. ";
   } else if (temperature > 40) {
-    clothingSuggestion +=
-      "Too cold to handle! Heavy coat, hat, scarf, and gloves needed. ";
+    clothingSuggestion += "Cold! Heavy coat, hat, scarf, and gloves needed. ";
   } else if (temperature > 35) {
     clothingSuggestion +=
       "Frigid conditions! Dress in layers with insulated clothing. ";
   } else if (temperature > 30) {
     clothingSuggestion +=
-      "Dangerously cold! Limit outdoor exposure and wear the warmest clothing. ";
+      "Cold! Limit outdoor exposure and wear the warmest clothing. ";
   } else if (temperature > 20) {
     clothingSuggestion +=
       "Bitterly cold! Limit outdoor exposure and bundle up. ";
@@ -83,7 +82,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       break;
     case "Clear":
       clothingSuggestion +=
-        "Clear sky. Sunglasses and a light outfit would be great. Perfect day for a walk. ";
+        "Clear sky. Don't forget sunglasses at daytime. Perfect day for a walk. ";
       break;
     case "Clouds":
       clothingSuggestion +=
