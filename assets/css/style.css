@@ -34,6 +34,7 @@ h2 {
 h4 {
   color: white;
   text-align: center;
+  font-weight: bold;
 }
 /* warning message if no address found*/
 h5 {
@@ -139,7 +140,7 @@ h5 {
 .main-section-full-page {
   margin: 50px;
 }
-
+/* search result card title block hidden before user types input */
 .card-section {
   text-align: center;
 }

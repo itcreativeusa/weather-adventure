@@ -137,7 +137,7 @@ function fetchHandler(event) {
 
       $(".card-section").html(""); // Clear existing content
       $(".card-section").append(
-        "<h4>Weather Information in " + capitalizedAddress + "</h4>",
+        "<h4>Weather in " + capitalizedAddress + "</h4>",
         "<p><span class='icons'>" +
           temperature +
           " &#8457;</span> <img src='" +
