@@ -32,7 +32,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   switch (weatherCondition) {
     case "Rain":
       clothingSuggestion +=
-        "It's raining! Don't forget your umbrella and waterproof jacket. ";
+        "It's raining! Don't forget your umbrellarain, rain jacket and waterproof boots. ";
       break;
     case "Snow":
       clothingSuggestion +=
@@ -44,11 +44,11 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       break;
     case "Clear":
       clothingSuggestion +=
-        "Clear skies! Sunglasses and a light outfit would be great. ";
+        "Clear sky. Sunglasses and a light outfit would be great. ";
       break;
     case "Clouds":
       clothingSuggestion +=
-        "Partly cloudy! Dress comfortably with a light jacket. ";
+        "Partly cloudy. Dress comfortably with a light jacket. ";
       break;
     case "Mist":
       clothingSuggestion += "Mist! Wear a rain jacket and waterproof boots. ";
@@ -60,7 +60,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   }
   // Display the clothing suggestions directly in the card-section
   $(".card-section").append(
-    "<div class='clothing-suggestions'> <h5>🌞 What to wear today:</h5><p>" +
+    "<div class='clothing-suggestions'> <h5>What to wear today:</h5><p>" +
       clothingSuggestion +
       "</p></div>"
   );
@@ -118,11 +118,9 @@ function fetchHandler(event) {
 
       var feelsLike = weatherData.main.feels_like;
       var humidity = weatherData.main.humidity;
-
       var windSpeed = weatherData.wind.speed;
-      var windDirection = weatherData.wind.deg;
       var clouds = weatherData.clouds.all;
-      var visibility = weatherData.visibility;
+
       var weather = weatherData.weather[0].main;
       var weatherIcon = weatherData.weather[0].icon;
       var weatherIconURL =
@@ -132,28 +130,22 @@ function fetchHandler(event) {
       console.log("Feels Like:", feelsLike);
       console.log("Humidity:", humidity);
       console.log("Wind Speed:", windSpeed);
-      console.log("Clouds:", clouds);
-      console.log("Visibility:", visibility);
+
       console.log("Weather:", weather);
       console.log("Weather Icon:", weatherIcon);
       console.log("Weather Icon URL:", weatherIconURL);
 
-      // Display weather information
       $(".card-section").html(""); // Clear existing content
       $(".card-section").append(
         "<h4>Weather Information in " + capitalizedAddress + "</h4>",
-        "<p>Temperature: " + temperature + " &#8457;</p>",
+        "<p><span class='icons'>" +
+          temperature +
+          " &#8457;</span> <img src='" +
+          weatherIconURL +
+          "' alt='Weather Icon' style='width: 100px; height: 100px;'></p>",
         "<p>Feels Like: " + feelsLike + " &#8457;</p>",
         "<p>Humidity: " + humidity + " %</p>",
-        "<p>Wind Speed: " + windSpeed + " m/s</p>",
-        "<p>Wind Direction: " + windDirection + " &#176;</p>",
-        "<p>Clouds: " + clouds + " %</p>",
-        "<p>Visibility: " + visibility + " m</p>",
-        "<p>Weather: " +
-          weather +
-          "<img src='" +
-          weatherIconURL +
-          "' alt='Weather Icon'></p>"
+        "<p>Wind Speed: " + windSpeed + " m/s</p>"
       );
 
       // Call the function to display clothing suggestions
@@ -193,30 +185,48 @@ var resultCardSection = "<div class='medium-6 cell card-section'></div>";
 $(".result-card-content").append(resultCardSection);
 
 var resultCardMap =
-  "<div class='medium-6 cell card-map'><h4>Weather map</h4><img id='weatherMap' src='' alt='Weather Map'></div>";
+  "<div class='medium-6 cell card-map'><img id='weatherMap' src='' alt='Weather Map'></div>";
 $(".result-card-content").append(resultCardMap);
 
-/* Function to fetch and set the OpenWeatherMap tile with user input coordinates */
+/* Function to fetch and set the OpenStreetMap tile with user input coordinates */
 function fetchWeatherMap(latitude, longitude) {
+  var map = L.map("map").setView([latitude, -longitude], 10); // Adjust the sign of longitude here
+
+  // Add OpenStreetMap tile layer to the map
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+  }).addTo(map);
+
+  // Additional code for OpenWeatherMap layer
   var layer = "temp";
   var zoom = 10;
-  if (longitude < 0) {
-    longitude = Math.abs(longitude);
-  }
+
+  // OpenStreetMap link
+  var openStreetMapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=10/${latitude}/${absLongitude}`;
+  console.log("OpenStreetMap Link:", openStreetMapLink);
+
+  // Create a new HTML element for OpenStreetMap link
+  var openStreetMapLinkElement = document.createElement("a");
+  openStreetMapLinkElement.href = openStreetMapLink;
+  openStreetMapLinkElement.textContent = "View on OpenStreetMap";
+  openStreetMapLinkElement.target = "_blank"; // Open link in a new tab
+
+  // Use the absolute value of longitude for OpenWeatherMap URL
+  var absLongitude = Math.abs(longitude);
 
   // Convert latitude and longitude to integers
   latitude = parseInt(latitude, 10);
-  longitude = parseInt(longitude, 10);
+  absLongitude = parseInt(absLongitude, 10);
 
   // Ensure that latitude and longitude are valid numbers
-  if (isNaN(latitude) || isNaN(longitude)) {
+  if (isNaN(latitude) || isNaN(absLongitude)) {
     console.error("Invalid latitude or longitude");
     return;
   }
 
   var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
 
-  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${longitude}.png?appid=${apiKey}`;
+  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${absLongitude}.png?appid=${apiKey}`;
 
   // Log the weatherMapURL to the console
   console.log("Weather Map URL:", weatherMapURL);
@@ -226,7 +236,6 @@ function fetchWeatherMap(latitude, longitude) {
   // Set the source of the weather map image
   $("#weatherMap").attr("src", weatherMapURL);
 }
-
 /* Local storage */
 function loadData() {
   var input = document.getElementById("address-search");

@@ -32,7 +32,7 @@ h2 {
 }
 /* result card title*/
 h4 {
-  color: #4776e6;
+  color: white;
   text-align: center;
 }
 /* warning message if no address found*/
@@ -69,23 +69,68 @@ h5 {
 .search-results {
   margin: 0 auto;
   background-image: linear-gradient(to right, #f9a514 0%, #f9d423 100%);
-  padding: 10px 45px;
+  padding: 10px 0;
 }
 /* search result block title*/
 .result {
   color: white;
   z-index: 2;
 }
-/* search result card */
-.result-card {
-  color: var(--dark-grey-color);
-  border: 1px solid #8a8a8a;
-  background: #fefefe;
-  /*background: rgba(46, 47, 48 , 0.6);*/
-}
 
 .result-card-content {
+  background: #7abcff; /* Old browsers */
+  background: -moz-radial-gradient(
+    center,
+    ellipse cover,
+    #7abcff 0%,
+    #60abf8 44%,
+    #4096ee 100%
+  );
+  background: -webkit-gradient(
+    radial,
+    center center,
+    0px,
+    center center,
+    100%,
+    color-stop(0%, #7abcff),
+    color-stop(44%, #60abf8),
+    color-stop(100%, #4096ee)
+  ); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(
+    center,
+    ellipse cover,
+    #7abcff 0%,
+    #60abf8 44%,
+    #4096ee 100%
+  );
+  background: -o-radial-gradient(
+    center,
+    ellipse cover,
+    #7abcff 0%,
+    #60abf8 44%,
+    #4096ee 100%
+  );
+  background: -ms-radial-gradient(
+    center,
+    ellipse cover,
+    #7abcff 0%,
+    #60abf8 44%,
+    #4096ee 100%
+  );
+  background: radial-gradient(
+    ellipse at center,
+    #7abcff 0%,
+    #60abf8 44%,
+    #4096ee 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.card-map {
   margin: 2%;
+}
+.icons {
+  color: orange;
+  font-size: 2.5rem;
 }
 /* search result card title block hidden before user types input */
 .hidden {
@@ -94,11 +139,9 @@ h5 {
 .main-section-full-page {
   margin: 50px;
 }
-/* card section */
-.card-section,
-.card-map {
-  border: 1px solid #e6e6e6;
-  margin-bottom: 5px;
+
+.card-section {
+  text-align: center;
 }
 .card-section li {
   background-color: #e6e6e6;
@@ -107,6 +150,7 @@ h5 {
   max-width: 300px;
   list-style: none;
 }
+
 .list {
   margin-bottom: 10%;
 }
@@ -126,7 +170,9 @@ h5 {
 /* weather map */
 #weatherMap {
   width: 100%;
-  height: 500px;
+  height: 400px;
+  margin: 0 auto;
+  padding: 5%;
 }
 /* navigation & footer */
 .navigation {

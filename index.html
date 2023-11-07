@@ -30,8 +30,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
       rel="stylesheet"
     />
+    <!--links to leaflet css framework-->
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  />
     <!--custom CSS file-->
     <link rel="stylesheet" href="assets/css/style.css" />
+
   </head>
   <body>
     <div class="grid-container main-section">
@@ -88,9 +94,9 @@
           </div>
         </div>
       </div>
-      <!-- Clothing suggestions block -->
-
       <!-- here adds search-result dynamically generated in JS file . it shows on click Search & Shine-->
+        <!-- clothing suggestions block -->
+        <div id="map"></div>
     </div>
   </div>
   <footer class="text-center">
@@ -102,6 +108,9 @@
   <script src="assets/js/vendor/jquery.js"></script>
   <script src="assets/js/vendor/what-input.js"></script>
   <script src="assets/js/vendor/foundation.js"></script>
+  <!--links to leaflet js framework-->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
   <!--custom JS file-->
   <script src="assets/js/script.js"></script>
 </body>
