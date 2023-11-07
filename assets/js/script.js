@@ -23,7 +23,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   } else if (temperature > 50) {
     clothingSuggestion += "It's cold! Bundle up with a warm jacket and hat. ";
   } else if (temperature > 40) {
-    clothingSuggestion += "It's too cold!Wear a heavy coat and hat. ";
+    clothingSuggestion += "It's too cold! Wear a heavy coat and hat. ";
   } else {
     clothingSuggestion += "It's freezing! Wear a heavy coat, hat, and gloves. ";
   }
@@ -48,7 +48,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       break;
     case "Clouds":
       clothingSuggestion +=
-        "Partly cloudy. Dress comfortably with a light jacket. ";
+        "Partly cloudy. Dress comfortably. Good day for a walk. ";
       break;
     case "Mist":
       clothingSuggestion += "Mist! Wear a rain jacket and waterproof boots. ";
