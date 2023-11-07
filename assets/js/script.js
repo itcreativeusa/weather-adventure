@@ -1,6 +1,7 @@
 /* Declare variables */
 var latitude;
 var longitude;
+var capitalizedAddress;
 var button = document.querySelector("#button");
 button.addEventListener("click", fetchHandler);
 
@@ -9,23 +10,61 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   var clothingSuggestion = "";
 
   // Clothing suggestions based on temperature
-  if (temperature > 90) {
+  if (temperature > 100) {
     clothingSuggestion +=
-      "It's hot! Consider light and breathable clothing. Don't forget sunscreen. ";
+      "Who turned up the heat? Stay indoors and keep hydrated. ";
+  } else if (temperature > 95) {
+    clothingSuggestion +=
+      "It's sizzling! Light and breathable clothing is your best bet. ";
+  } else if (temperature > 90) {
+    clothingSuggestion += "Hot stuff! T-shirt and shorts are the way to go. ";
+  } else if (temperature > 85) {
+    clothingSuggestion += "Feeling warm! Opt for light clothing to stay cool. ";
   } else if (temperature > 80) {
-    clothingSuggestion +=
-      "It's warm! T-shirt and shorts would be comfortable. ";
+    clothingSuggestion += "Warm vibes! T-shirt and shorts would be perfect. ";
+  } else if (temperature > 75) {
+    clothingSuggestion += "A bit warm! Choose breathable fabrics for comfort. ";
   } else if (temperature > 70) {
     clothingSuggestion +=
-      "It's cool! A light jacket or sweater might be nice. ";
+      "Cool and comfy! A light jacket or sweater might be nice. ";
+  } else if (temperature > 65) {
+    clothingSuggestion +=
+      "Chill in the air! Consider layering with a light jacket. ";
   } else if (temperature > 60) {
-    clothingSuggestion += "It's a bit cold. Wear a jacket. ";
+    clothingSuggestion +=
+      "Cool breeze! A light jacket or sweater would be perfect. ";
+  } else if (temperature > 55) {
+    clothingSuggestion += "Chilly weather! Grab a light jacket or sweater. ";
   } else if (temperature > 50) {
-    clothingSuggestion += "It's cold! Bundle up with a warm jacket and hat. ";
+    clothingSuggestion +=
+      "Cold alert! Bundle up with a warm jacket and sweater. ";
+  } else if (temperature > 45) {
+    clothingSuggestion +=
+      "Brisk and cold! Insulated outerwear will keep you warm. ";
   } else if (temperature > 40) {
-    clothingSuggestion += "It's too cold! Wear a heavy coat and hat. ";
+    clothingSuggestion +=
+      "Too cold to handle! Heavy coat, hat, scarf, and gloves needed. ";
+  } else if (temperature > 35) {
+    clothingSuggestion +=
+      "Frigid conditions! Dress in layers with insulated clothing. ";
+  } else if (temperature > 30) {
+    clothingSuggestion +=
+      "Dangerously cold! Limit outdoor exposure and wear the warmest clothing. ";
+  } else if (temperature > 20) {
+    clothingSuggestion +=
+      "Bitterly cold! Limit outdoor exposure and bundle up. ";
+  } else if (temperature > 10) {
+    clothingSuggestion +=
+      "Frosty weather! Limit outdoor exposure and wear the warmest clothing. ";
+  } else if (temperature > 0) {
+    clothingSuggestion +=
+      "Freezing point! Limit outdoor exposure and bundle up. ";
+  } else if (temperature > -10) {
+    clothingSuggestion +=
+      "Extreme cold alert! Stay indoors and wear the warmest clothing. ";
   } else {
-    clothingSuggestion += "It's freezing! Wear a heavy coat, hat, and gloves. ";
+    clothingSuggestion +=
+      "Bone-chilling cold! Stay indoors and bundle up for warmth. ";
   }
 
   // Clothing suggestions based on weather condition
@@ -44,7 +83,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       break;
     case "Clear":
       clothingSuggestion +=
-        "Clear sky. Sunglasses and a light outfit would be great. ";
+        "Clear sky. Sunglasses and a light outfit would be great. Perfect day for a walk. ";
       break;
     case "Clouds":
       clothingSuggestion +=
@@ -60,7 +99,9 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   }
   // Display the clothing suggestions directly in the card-section
   $(".card-section").append(
-    "<div class='clothing-suggestions'> <h5>What to wear today:</h5><p>" +
+    "<div class='clothing-suggestions'> <h5>What to wear today in " +
+      capitalizedAddress +
+      ":</h5><p>" +
       clothingSuggestion +
       "</p></div>"
   );
@@ -72,7 +113,7 @@ function fetchHandler(event) {
   var address = document.getElementById("address-search").value;
 
   // Capitalize each word in the address
-  var capitalizedAddress = address
+  capitalizedAddress = address
     .toLowerCase()
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
