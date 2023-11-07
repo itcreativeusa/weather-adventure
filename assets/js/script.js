@@ -9,7 +9,7 @@ button.addEventListener("click", fetchHandler);
 function displayClothingSuggestions(temperature, weatherCondition) {
   var clothingSuggestion = "";
 
-  // Clothing suggestions based on temperature
+  /* Clothing suggestions based on temperature */
   if (temperature > 100) {
     clothingSuggestion +=
       "Who turned up the heat? Stay indoors and keep hydrated. ";
@@ -66,7 +66,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       "Bone-chilling cold! Stay indoors and bundle up for warmth. ";
   }
 
-  // Clothing suggestions based on weather condition
+  /* Clothing suggestions based on weather condition*/
   switch (weatherCondition) {
     case "Rain":
       clothingSuggestion +=
@@ -96,7 +96,7 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       clothingSuggestion +=
         "Weather conditions are diverse! Dress accordingly. ";
   }
-  // Display the clothing suggestions directly in the card-section
+  /* Display the clothing suggestions directly in the card-section*/
   $(".card-section").append(
     "<div class='clothing-suggestions'> <h5>What to wear today in " +
       capitalizedAddress +
@@ -111,7 +111,7 @@ function fetchHandler(event) {
   event.preventDefault();
   var address = document.getElementById("address-search").value;
 
-  // Capitalize each word in the address
+  /* Capitalize each word in the address*/
   capitalizedAddress = address
     .toLowerCase()
     .split(" ")
@@ -152,15 +152,14 @@ function fetchHandler(event) {
     .then(function (weatherData) {
       console.log("weather-response:", weatherData);
 
-      // Display or process the weather information as needed
+      /* Display or process the weather information */
       var temperature = weatherData.main.temp;
       var weatherCondition = weatherData.weather[0].main;
-
       var feelsLike = weatherData.main.feels_like;
       var humidity = weatherData.main.humidity;
       var windSpeed = weatherData.wind.speed;
+      /* clouds could be used to display cloud later */
       var clouds = weatherData.clouds.all;
-
       var weather = weatherData.weather[0].main;
       var weatherIcon = weatherData.weather[0].icon;
       var weatherIconURL =
@@ -188,10 +187,10 @@ function fetchHandler(event) {
         "<p>Wind Speed: " + windSpeed + " m/s</p>"
       );
 
-      // Call the function to display clothing suggestions
+      /* Call the function to display clothing suggestions */
       displayClothingSuggestions(temperature, weatherCondition);
 
-      // Call the function to fetch and set the OpenWeatherMap tile with user input coordinates
+      /* Call the function to fetch and set the OpenWeatherMap tile with user input coordinates*/
       fetchWeatherMap(latitude, longitude);
     })
     .catch((error) => {
@@ -207,7 +206,6 @@ $(document).ready(function () {
     } else {
       $(".result").removeClass("hidden");
     }
-
     var listing = document.getElementById("address-search").value;
     localStorage.setItem("listing", listing);
   });
@@ -219,61 +217,58 @@ $(".result").append(resultCardBlock);
 var resultCardContent =
   "<div class='grid-x grid-margin-x result-card-content'></div>";
 $(".result-card").append(resultCardContent);
-
-// Foundation classes for medium screens, adjust as needed
 var resultCardSection = "<div class='medium-6 cell card-section'></div>";
 $(".result-card-content").append(resultCardSection);
-
 var resultCardMap =
   "<div class='medium-6 cell card-map'><img id='weatherMap' src='' alt='Weather Map'></div>";
 $(".result-card-content").append(resultCardMap);
 
 /* Function to fetch and set the OpenStreetMap tile with user input coordinates */
 function fetchWeatherMap(latitude, longitude) {
-  var map = L.map("map").setView([latitude, -longitude], 10); // Adjust the sign of longitude here
+  var map = L.map("map").setView([latitude, -longitude], 10);
 
-  // Add OpenStreetMap tile layer to the map
+  /* Add OpenStreetMap tile layer to the map */
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
   }).addTo(map);
 
-  // Additional code for OpenWeatherMap layer
+  /* Additional code for OpenWeatherMap layer */
   var layer = "temp";
   var zoom = 10;
 
-  // OpenStreetMap link
+  /* OpenStreetMap link */
   var openStreetMapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=10/${latitude}/${absLongitude}`;
   console.log("OpenStreetMap Link:", openStreetMapLink);
 
-  // Create a new HTML element for OpenStreetMap link
+  /* Create a new HTML element for OpenStreetMap link */
   var openStreetMapLinkElement = document.createElement("a");
   openStreetMapLinkElement.href = openStreetMapLink;
   openStreetMapLinkElement.textContent = "View on OpenStreetMap";
   openStreetMapLinkElement.target = "_blank"; // Open link in a new tab
 
-  // Use the absolute value of longitude for OpenWeatherMap URL
+  /* Use the absolute value of longitude for OpenWeatherMap URL */
   var absLongitude = Math.abs(longitude);
 
-  // Convert latitude and longitude to integers
+  /* Convert latitude and longitude to integers */
   latitude = parseInt(latitude, 10);
   absLongitude = parseInt(absLongitude, 10);
 
-  // Ensure that latitude and longitude are valid numbers
+  /* Ensure that latitude and longitude are valid numbers */
   if (isNaN(latitude) || isNaN(absLongitude)) {
     console.error("Invalid latitude or longitude");
     return;
   }
-
+  /* OpenWeatherMap Api Key */
   var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
-
+  /* OpenWeatherMap URL*/
   var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${absLongitude}.png?appid=${apiKey}`;
 
-  // Log the weatherMapURL to the console
+  /* Log the weatherMapURL to the console */
   console.log("Weather Map URL:", weatherMapURL);
   console.log("Latitude:", latitude);
   console.log("Longitude:", longitude);
 
-  // Set the source of the weather map image
+  /* Set the source of the weather map image */
   $("#weatherMap").attr("src", weatherMapURL);
 }
 /* Local storage */
