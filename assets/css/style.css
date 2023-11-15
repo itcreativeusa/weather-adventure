@@ -35,15 +35,14 @@ h4 {
   color: white;
   text-align: center;
   font-weight: bold;
+  font-size: 2.25rem;
 }
 /* warning message if no address found*/
 h5 {
   color: orange;
-  text-transform: uppercase;
-  font-weight: bold;
   padding: 0px 10%;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2.25rem;
 }
 /* submit button search */
 .button {
@@ -165,8 +164,10 @@ h5 {
   text-align: center;
 }
 /* clothing suggestions */
-.clothing-suggestions {
-  font-weight: bold;
+
+.clothing-suggestions p {
+  font-size: 2rem;
+  text-align: center;
 }
 /* weather map */
 #weatherMap {

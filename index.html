@@ -4,10 +4,8 @@
     <title>Weather radar</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--links to CSS files foundation css framework-->
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/foundation.css" />
-    <!--links to icon files foundation css framework-->
     <link
       rel="stylesheet"
       href="assets/foundation-icons/foundation-icons.css"
@@ -24,46 +22,36 @@
       rel="stylesheet"
       href="assets/foundation-icons/foundation-icons.woff"
     />
-    <!--links to font-awesome icons-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
       rel="stylesheet"
     />
-    <!--links to leaflet css framework-->
-    <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-  />
-    <!--custom CSS file-->
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" />
   </head>
   <body>
     <div class="grid-container main-section">
       <div class="grid-x grid-padding-x">
-       
-        <!--audio controls-->
         <div class="large-12 cell">
-          <audio controls loop autoplay style="margin-top: 10px;">
-            <!-- If the audio is hosted on your server -->
+          <audio controls loop autoplay style="margin-top: 10px">
             <source src="assets/audio/music.mp3" type="audio/mp3" />
             Your browser does not support the audio tag.
           </audio>
         </div>
         <div class="large-12 cell">
-          <!--h1 header-->
           <h1 class="text-center">Weather adventure🌤️</h1>
         </div>
       </div>
-      <!--h2 header-->
       <h2 class="text-center">
         Find out the weather, temperature, humidity and more in your area
       </h2>
-      <!--form-->
       <form id="address-form">
         <div class="grid-x grid-padding-x">
           <div class="form-input cell">
-            <!--input-->
             <input
               type="text"
               class="street-address-form cell input-group-field"
@@ -71,40 +59,30 @@
               name="address-search"
               placeholder="Please enter city name"
             />
-            <!--search button-->
             <button id="button" class="button large">Search & Shine</button>
           </div>
         </div>
       </form>
     </div>
-    <!--results block-->
     <div class="result hidden">
       <div class="search-results">
         <div class="grid-x grid-padding-x">
-          <!--search result h3 block & icon-->
           <div class="large-12 cell">
             <h3>Search results <i class="fi-magnifying-glass"></i></h3>
           </div>
         </div>
       </div>
-      <!-- here adds search-result dynamically generated in JS file . it shows on click Search & Shine-->
-        <!-- clothing suggestions block -->
-        <div id="map"></div>
+      <div id="map"></div>
     </div>
-  </div>
-  <footer class="text-center">
-    <a href="https://github.com/itcreativeusa/"
-      ><i class="fi-social-github"> Kateryna Stetsenko</i></a
-    >
-  </footer>
-  <!--links to JS files foundation css framework-->
-  <script src="assets/js/vendor/jquery.js"></script>
-  <script src="assets/js/vendor/what-input.js"></script>
-  <script src="assets/js/vendor/foundation.js"></script>
-  <!--links to leaflet js framework-->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <!--custom JS file-->
-  <script src="assets/js/script.js"></script>
-</body>
-
+    <footer class="text-center">
+      <a href="https://github.com/itcreativeusa/"
+        ><i class="fi-social-github"> Kateryna Stetsenko</i></a
+      >
+    </footer>
+    <script src="assets/js/vendor/jquery.js"></script>
+    <script src="assets/js/vendor/what-input.js"></script>
+    <script src="assets/js/vendor/foundation.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
 </html>

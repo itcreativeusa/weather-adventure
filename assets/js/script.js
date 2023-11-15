@@ -2,6 +2,7 @@
 var latitude;
 var longitude;
 var capitalizedAddress;
+var layer = "clouds_new";
 var button = document.querySelector("#button");
 button.addEventListener("click", fetchHandler);
 
@@ -153,9 +154,9 @@ function fetchHandler(event) {
       console.log("weather-response:", weatherData);
 
       /* Display or process the weather information */
-      var temperature = weatherData.main.temp;
+      var temperature = parseInt(weatherData.main.temp);
       var weatherCondition = weatherData.weather[0].main;
-      var feelsLike = weatherData.main.feels_like;
+      var feelsLike = parseInt(weatherData.main.feels_like);
       var humidity = weatherData.main.humidity;
       var windSpeed = weatherData.wind.speed;
       /* clouds could be used to display cloud later */
@@ -225,52 +226,51 @@ $(".result-card-content").append(resultCardMap);
 
 /* Function to fetch and set the OpenStreetMap tile with user input coordinates */
 function fetchWeatherMap(latitude, longitude) {
-  var map = L.map("map").setView([latitude, -longitude], 10);
+  console.log(
+    "Before map initialization. Map Element:",
+    document.getElementById("map")
+  );
 
-  /* Add OpenStreetMap tile layer to the map */
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors",
-  }).addTo(map);
+  // Check if map container is present
+  console.log(
+    "Before map initialization. Map Element:",
+    document.getElementById("map")
+  );
 
-  /* Additional code for OpenWeatherMap layer */
-  var layer = "temp";
-  var zoom = 10;
+  // Wait for the DOM to be fully loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    // Create a new map
+    map = L.map("map").setView([latitude, longitude], 10);
 
-  /* OpenStreetMap link */
-  var openStreetMapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=10/${latitude}/${absLongitude}`;
-  console.log("OpenStreetMap Link:", openStreetMapLink);
+    console.log(
+      "After map initialization. Map Element:",
+      document.getElementById("map")
+    );
+  });
 
-  /* Create a new HTML element for OpenStreetMap link */
-  var openStreetMapLinkElement = document.createElement("a");
-  openStreetMapLinkElement.href = openStreetMapLink;
-  openStreetMapLinkElement.textContent = "View on OpenStreetMap";
-  openStreetMapLinkElement.target = "_blank"; // Open link in a new tab
-
-  /* Use the absolute value of longitude for OpenWeatherMap URL */
-  var absLongitude = Math.abs(longitude);
-
-  /* Convert latitude and longitude to integers */
-  latitude = parseInt(latitude, 10);
-  absLongitude = parseInt(absLongitude, 10);
-
-  /* Ensure that latitude and longitude are valid numbers */
-  if (isNaN(latitude) || isNaN(absLongitude)) {
+  // Ensure that latitude and longitude are valid numbers
+  if (isNaN(latitude) || isNaN(longitude)) {
     console.error("Invalid latitude or longitude");
     return;
   }
-  /* OpenWeatherMap Api Key */
-  var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
-  /* OpenWeatherMap URL*/
-  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${absLongitude}.png?appid=${apiKey}`;
 
-  /* Log the weatherMapURL to the console */
+  // OpenWeatherMap Api Key
+  var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
+  // OpenWeatherMap URL
+  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${longitude}.png?appid=${apiKey}`;
+
+  // Log the weatherMapURL to the console
   console.log("Weather Map URL:", weatherMapURL);
   console.log("Latitude:", latitude);
   console.log("Longitude:", longitude);
 
-  /* Set the source of the weather map image */
+  // Set the source of the weather map image
   $("#weatherMap").attr("src", weatherMapURL);
+
+  // Append the OpenStreetMap link to the card-section
+  $(".card-section").append(openStreetMapLinkElement);
 }
+
 /* Local storage */
 function loadData() {
   var input = document.getElementById("address-search");
