@@ -13,97 +13,104 @@ function displayClothingSuggestions(temperature, weatherCondition) {
   /* Clothing suggestions based on temperature */
   if (temperature > 100) {
     clothingSuggestion +=
-      "Who turned up the heat? Stay indoors and keep hydrated. ";
+      "<p>Who turned up the heat? Stay indoors and keep hydrated. </p>";
   } else if (temperature > 95) {
     clothingSuggestion +=
-      "It's sizzling! Light and breathable clothing is your best bet. ";
+      "<p>It's sizzling! Light and breathable clothing is your best bet. </p>";
   } else if (temperature > 90) {
-    clothingSuggestion += "Hot stuff! T-shirt and shorts are the way to go. ";
+    clothingSuggestion +=
+      "<p>Hot stuff! T-shirt and shorts are the way to go. </p>";
   } else if (temperature > 85) {
-    clothingSuggestion += "Feeling warm! Opt for light clothing to stay cool. ";
+    clothingSuggestion +=
+      "<p>Feeling warm! Opt for light clothing to stay cool. </p>";
   } else if (temperature > 80) {
-    clothingSuggestion += "Warm vibes! T-shirt and shorts would be perfect. ";
+    clothingSuggestion +=
+      "<p>Warm vibes! T-shirt and shorts would be perfect. </p>";
   } else if (temperature > 75) {
-    clothingSuggestion += "A bit warm! Choose breathable fabrics for comfort. ";
+    clothingSuggestion +=
+      "<p>A bit warm! Choose breathable fabrics for comfort. </p>";
   } else if (temperature > 70) {
     clothingSuggestion +=
-      "Cool and comfy! A light jacket or sweater might be nice. ";
+      "<p>Cool and comfy! A light jacket or sweater might be nice. </p>";
   } else if (temperature > 65) {
     clothingSuggestion +=
-      "Chill in the air! Consider layering with a light jacket. ";
+      "<p>Chill in the air! Consider layering with a light jacket. </p>";
   } else if (temperature > 60) {
     clothingSuggestion +=
-      "Cool breeze! A light jacket or sweater would be perfect. ";
+      "<p>Cool breeze! A light jacket or sweater would be perfect. </p>";
   } else if (temperature > 55) {
-    clothingSuggestion += "Chilly weather! Grab a light jacket or sweater. ";
+    clothingSuggestion +=
+      "<p>Chilly weather! Grab a light jacket or sweater. </p>";
   } else if (temperature > 50) {
     clothingSuggestion +=
-      "Cold a bit. Bundle up with a warm jacket and sweater. ";
+      "<p>Cold a bit. Bundle up with a warm jacket and sweater. </p>";
   } else if (temperature > 45) {
     clothingSuggestion +=
-      "Brisk and cold! Insulated outerwear will keep you warm. ";
+      "<p>Brisk and cold! Insulated outerwear will keep you warm. </p>";
   } else if (temperature > 40) {
-    clothingSuggestion += "Cold! Heavy coat, hat, scarf, and gloves needed. ";
+    clothingSuggestion +=
+      "<p>Cold! Heavy coat, hat, scarf, and gloves needed. </p>";
   } else if (temperature > 35) {
     clothingSuggestion +=
-      "Frigid conditions! Dress in layers with insulated clothing. ";
+      "<p>Frigid conditions! Dress in layers with insulated clothing. </p>";
   } else if (temperature > 30) {
     clothingSuggestion +=
-      "Cold! Limit outdoor exposure and wear the warmest clothing. ";
+      "<p>Cold! Limit outdoor exposure and wear the warmest clothing. </p>";
   } else if (temperature > 20) {
     clothingSuggestion +=
-      "Bitterly cold! Limit outdoor exposure and bundle up. ";
+      "<p>Bitterly cold! Limit outdoor exposure and bundle up. </p>";
   } else if (temperature > 10) {
     clothingSuggestion +=
-      "Frosty weather! Limit outdoor exposure and wear the warmest clothing. ";
+      "<p>Frosty weather! Limit outdoor exposure and wear the warmest clothing. </p>";
   } else if (temperature > 0) {
     clothingSuggestion +=
-      "Freezing point! Limit outdoor exposure and bundle up. ";
+      "<p>Freezing point! Limit outdoor exposure and bundle up. </p>";
   } else if (temperature > -10) {
     clothingSuggestion +=
-      "Extreme cold alert! Stay indoors and wear the warmest clothing. ";
+      "<p>Extreme cold alert! Stay indoors and wear the warmest clothing. </p>";
   } else {
     clothingSuggestion +=
-      "Bone-chilling cold! Stay indoors and bundle up for warmth. ";
+      "<p>Bone-chilling cold! Stay indoors and bundle up for warmth. </p>";
   }
 
-  /* Clothing suggestions based on weather condition*/
+  /* Clothing suggestions based on weather condition */
   switch (weatherCondition) {
     case "Rain":
       clothingSuggestion +=
-        "It's raining! Don't forget your umbrellarain, rain jacket and waterproof boots. ";
+        "<p>It's raining! Don't forget your umbrella, rain jacket, and waterproof boots. </p>";
       break;
     case "Snow":
       clothingSuggestion +=
-        "It's snowing! Bundle up with a heavy coat and snow boots. ";
+        "<p>It's snowing! Bundle up with a heavy coat and snow boots. </p>";
       break;
     case "Thunderstorm":
       clothingSuggestion +=
-        "Thunderstorm alert! Stay indoors and avoid heavy clothing. ";
+        "<p>Thunderstorm alert! Stay indoors and avoid heavy clothing. </p>";
       break;
     case "Clear":
       clothingSuggestion +=
-        "Clear sky. Don't forget sunglasses at daytime. Perfect day for a walk. ";
+        "<p>Clear sky. Don't forget sunglasses at daytime. Perfect day for a walk. </p>";
       break;
     case "Clouds":
       clothingSuggestion +=
-        "Partly cloudy. Dress comfortably. Good day for a walk. ";
+        "<p>Partly cloudy. Dress comfortably. Good day for a walk. </p>";
       break;
     case "Mist":
-      clothingSuggestion += "Mist! Wear a rain jacket and waterproof boots. ";
+      clothingSuggestion +=
+        "<p>Mist! Wear a rain jacket and waterproof boots. </p>";
       break;
-
     default:
       clothingSuggestion +=
-        "Weather conditions are diverse! Dress accordingly. ";
+        "<p>Weather conditions are diverse! Dress accordingly. </p>";
   }
+
   /* Display the clothing suggestions directly in the card-section*/
   $(".card-section").append(
     "<div class='clothing-suggestions'> <h5>What to wear today in " +
       capitalizedAddress +
-      ":</h5><p>" +
+      ":</h5><div class='clothing-suggestions-text'>" +
       clothingSuggestion +
-      "</p></div>"
+      "</div></div>"
   );
 }
 
@@ -180,9 +187,9 @@ function fetchHandler(event) {
         "<h4>Weather in " + capitalizedAddress + "</h4>",
         "<p><span class='icons'>" +
           temperature +
-          " &#8457;</span> <img src='" +
+          " &#8457;</span></p><img src='" +
           weatherIconURL +
-          "' alt='Weather Icon' style='width: 100px; height: 100px;'></p>",
+          "' alt='Weather Icon' style='width: 100px; height: 100px;'>",
         "<p>Feels Like: " + feelsLike + " &#8457;</p>",
         "<p>Humidity: " + humidity + " %</p>",
         "<p>Wind Speed: " + windSpeed + " m/s</p>"

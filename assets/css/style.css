@@ -1,3 +1,93 @@
+/* Reset CSS*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
 /* declare variables */
 :root {
   --dark-grey-color: #2e2f30;
@@ -13,42 +103,51 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  font-family: "Monserat", sans-serif;
 }
 .grid-container {
   flex: 1;
 }
 .main {
   height: 100%;
+  padding: 2.5%;
 }
 /* h1 header */
 h1 {
   color: white;
   text-transform: uppercase;
-  font-weight: bold;
+  font-size: 3rem;
+  padding: 2.5% 0 0 0;
 }
 /* h2 header */
 h2 {
   color: white;
+  font-size: 1.5rem;
+  padding: 2.5% 0 0 0;
+  text-transform: uppercase;
+}
+h3 {
+  color: white;
+  font-size: 1.5rem;
 }
 /* result card title*/
 h4 {
   color: white;
   text-align: center;
   font-size: 2.25rem;
+  padding: 2.5%;
 }
 /* warning message if no address found*/
 h5 {
   color: white;
   background-image: linear-gradient(to right, #f9a514 0%, #f9d423 100%);
-  padding: 0px 10%;
   text-align: center;
   font-size: 2rem;
 }
 /* submit button search */
 .button {
   background-image: linear-gradient(to right, #f9a514 0%, #f9d423 100%);
-  margin: 10px auto;
-  padding: 15px 45px;
+  margin: 3% auto;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -142,7 +241,7 @@ h5 {
 
 .card-section {
   text-align: center;
-  padding: 0 5%;
+  padding: 2.5%;
   border: white 1px solid;
 }
 .card-section li {
@@ -165,15 +264,24 @@ h5 {
   font-size: 1.5rem;
   text-align: center;
 }
+#address-search {
+  margin: 2.5% auto;
+  padding: 10px;
+  text-transform: capitalize;
+  font-size: 1.25rem;
+  color: #566573;
+  font-family: "Roboto", sans-serif;
+}
 /* clothing suggestions */
 
 .clothing-suggestions h5 {
-  padding: 10px 0;
+  padding: 5% 0;
   background: none;
 }
-.clothing-suggestions p {
+.clothing-suggestions-text {
   font-size: 2rem;
   text-align: center;
+  padding: 5%;
   background-image: linear-gradient(to right, #f9a514 0%, #f9d423 100%);
 }
 /* weather map */
