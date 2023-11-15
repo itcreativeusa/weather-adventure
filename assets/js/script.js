@@ -8,14 +8,6 @@ var zoom = 10; // Add this line to define the zoom level
 var button = document.querySelector("#button");
 button.addEventListener("click", fetchHandler);
 
-// Variable for OpenStreetMap link
-var openStreetMapLinkElement =
-  "<p>View on <a href='https://www.openstreetmap.org/?mlat=" +
-  latitude +
-  "&mlon=" +
-  longitude +
-  "&zoom=10' target='_blank'>OpenStreetMap</a></p>";
-
 /* Function to display clothing suggestions */
 function displayClothingSuggestions(temperature, weatherCondition) {
   var clothingSuggestion = "";
@@ -259,11 +251,10 @@ function fetchWeatherMap(latitude, longitude) {
   var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${intLatitude}/${intLongitude}.png?appid=${apiKey}`;
 
   console.log("Weather Map URL:", weatherMapURL);
-  console.log("Latitude:", intLatitude);
-  console.log("Longitude:", intLongitude);
+  console.log("Integer Latitude:", intLatitude);
+  console.log("Integer Longitude:", intLongitude);
 
   $("#weatherMap").attr("src", weatherMapURL);
-  $(".card-section").append(openStreetMapLinkElement);
 }
 
 function loadData() {

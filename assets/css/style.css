@@ -225,7 +225,7 @@ h5 {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .card-map {
-  margin: 2%;
+  border: #fff 1px solid;
 }
 .icons {
   color: orange;
