@@ -10,6 +10,16 @@ https://github.com/itcreativeusa/weather-adventure
 
 This is a weather dashboard application with search functionality to find current weather conditions and the future weather outlook for multiple cities. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
 
+Technologies used:
+
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- OpenStreetMap
+- OpenWeather
+- Leaflet
+
 ## Table of Contents
 
 - [Installation](#installation)
