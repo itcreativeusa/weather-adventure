@@ -35,7 +35,7 @@ No special installation is required. Just open the link in the browser.
 
 1. Type the city name & press search button
 2. Search results will appear
-3. If no address is entered, the user will see an alert message
+3. If no city name is entered, the user will see an alert message
 4. if nothing is found according to the search criteria - the user will see the warning message
 
 The screenshot is located in the `assets/images` folder
