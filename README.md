@@ -36,7 +36,7 @@ The screenshot is located in the `assets/images` folder
 
 1. OpenStreetMap - a collaborative project to create a free editable map of the world. https://www.openstreetmap.org/
 2. OpenWeather - a team of IT experts and data scientists that has been practising deep weather data science since 2014. https://openweathermap.org/
-3. https://unsplash.com/photos/4q2x6UcYs5Y - The image background was taken from the Unsplash website.
+3. The image background was taken from the Unsplash website. - https://unsplash.com/photos/4q2x6UcYs5Y
 4. Leaflet - an open-source JavaScript library for mobile-friendly interactive maps. https://leafletjs.com/
 
 ## License
