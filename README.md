@@ -14,17 +14,12 @@ This is a weather dashboard application with search functionality to find curren
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Requirements](#requirements)
 - [Credits](#credits)
 - [License](#license)
 
 ## Installation
 
-N/A
-
-## Requirements
-
-No special requirements
+No special installation is required. Just open the link in the browser.
 
 ## Usage
 
@@ -39,9 +34,10 @@ The screenshot is located in the `assets/images` folder
 
 ## Credits
 
-1. https://openweathermap.org/ - for weather API
-
-The image background was taken from the Unsplash website. https://unsplash.com/
+1. OpenStreetMap - a collaborative project to create a free editable map of the world. https://www.openstreetmap.org/
+2. OpenWeather - a team of IT experts and data scientists that has been practising deep weather data science since 2014. https://openweathermap.org/
+3. https://unsplash.com/photos/4q2x6UcYs5Y - The image background was taken from the Unsplash website.
+4. Leaflet - an open-source JavaScript library for mobile-friendly interactive maps. https://leafletjs.com/
 
 ## License
 
