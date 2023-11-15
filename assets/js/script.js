@@ -233,8 +233,34 @@ var resultCardMap =
   "<div class='medium-6 cell card-map'><img id='weatherMap' src='' alt='Weather Map'></div>";
 $(".result-card-content").append(resultCardMap);
 
-/* Function to fetch and set the OpenStreetMap tile with user input coordinates */
+/* Function Fetch and set the OpenWeatherMap tile with user input coordinates*/
 function fetchWeatherMap(latitude, longitude) {
+  // Log the map link to the console
+  var mapLink = `https://www.openstreetmap.org/#map=10/${latitude}/${longitude}`;
+  console.log("Map Link:", mapLink);
+
+  // Fetch and set the OpenWeatherMap tile with user input coordinates
+  var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
+  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${longitude}.png?appid=${apiKey}`;
+
+  console.log("Weather Map URL:", weatherMapURL);
+
+  $("#weatherMap").attr("src", weatherMapURL);
+
+  // Initialize the Leaflet map after the map link and weather map URL are logged
+  var map = L.map("map").setView([latitude, longitude], 10);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+  }).addTo(map);
+}
+
+// Call fetchWeatherMap after the map is loaded
+document.addEventListener("DOMContentLoaded", function () {
+  fetchWeatherMap(latitude, longitude);
+});
+
+/*function fetchWeatherMap(latitude, longitude) {
   document.addEventListener("DOMContentLoaded", function () {
     map = L.map("map").setView([parseInt(latitude), parseInt(longitude)], 10);
   });
@@ -243,6 +269,7 @@ function fetchWeatherMap(latitude, longitude) {
     console.error("Invalid latitude or longitude");
     return;
   }
+}
 
   var intLatitude = parseInt(latitude);
   var intLongitude = parseInt(longitude);
@@ -256,6 +283,7 @@ function fetchWeatherMap(latitude, longitude) {
 
   $("#weatherMap").attr("src", weatherMapURL);
 }
+*/
 
 function loadData() {
   var input = document.getElementById("address-search");
