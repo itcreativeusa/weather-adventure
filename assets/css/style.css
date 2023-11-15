@@ -318,3 +318,6 @@ footer a {
   font-size: 1.25rem;
   font-style: normal;
 }
+footer a:hover {
+  color: #f9d423;
+}
