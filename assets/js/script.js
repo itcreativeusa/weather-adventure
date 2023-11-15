@@ -247,43 +247,27 @@ function fetchWeatherMap(latitude, longitude) {
 
   $("#weatherMap").attr("src", weatherMapURL);
 
-  // Initialize the Leaflet map after the map link and weather map URL are logged
+  // Initialize the Leaflet map
   var map = L.map("map").setView([latitude, longitude], 10);
 
+  // Add OpenStreetMap layer
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
   }).addTo(map);
+
+  // Add OpenWeatherMap layer
+  L.tileLayer(
+    `https://tile.openweathermap.org/map/${layer}/${zoom}/{z}/{x}/{y}.png?appid=${apiKey}`,
+    {
+      attribution: "© OpenWeatherMap contributors",
+    }
+  ).addTo(map);
 }
 
 // Call fetchWeatherMap after the map is loaded
 document.addEventListener("DOMContentLoaded", function () {
   fetchWeatherMap(latitude, longitude);
 });
-
-/*function fetchWeatherMap(latitude, longitude) {
-  document.addEventListener("DOMContentLoaded", function () {
-    map = L.map("map").setView([parseInt(latitude), parseInt(longitude)], 10);
-  });
-
-  if (isNaN(latitude) || isNaN(longitude)) {
-    console.error("Invalid latitude or longitude");
-    return;
-  }
-}
-
-  var intLatitude = parseInt(latitude);
-  var intLongitude = parseInt(longitude);
-
-  var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
-  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${intLatitude}/${intLongitude}.png?appid=${apiKey}`;
-
-  console.log("Weather Map URL:", weatherMapURL);
-  console.log("Integer Latitude:", intLatitude);
-  console.log("Integer Longitude:", intLongitude);
-
-  $("#weatherMap").attr("src", weatherMapURL);
-}
-*/
 
 function loadData() {
   var input = document.getElementById("address-search");
