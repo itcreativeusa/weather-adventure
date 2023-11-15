@@ -3,8 +3,18 @@ var latitude;
 var longitude;
 var capitalizedAddress;
 var layer = "clouds_new";
+var map;
+var zoom = 10; // Add this line to define the zoom level
 var button = document.querySelector("#button");
 button.addEventListener("click", fetchHandler);
+
+// Variable for OpenStreetMap link
+var openStreetMapLinkElement =
+  "<p>View on <a href='https://www.openstreetmap.org/?mlat=" +
+  latitude +
+  "&mlon=" +
+  longitude +
+  "&zoom=10' target='_blank'>OpenStreetMap</a></p>";
 
 /* Function to display clothing suggestions */
 function displayClothingSuggestions(temperature, weatherCondition) {
@@ -233,52 +243,29 @@ $(".result-card-content").append(resultCardMap);
 
 /* Function to fetch and set the OpenStreetMap tile with user input coordinates */
 function fetchWeatherMap(latitude, longitude) {
-  console.log(
-    "Before map initialization. Map Element:",
-    document.getElementById("map")
-  );
-
-  // Check if map container is present
-  console.log(
-    "Before map initialization. Map Element:",
-    document.getElementById("map")
-  );
-
-  // Wait for the DOM to be fully loaded
   document.addEventListener("DOMContentLoaded", function () {
-    // Create a new map
-    map = L.map("map").setView([latitude, longitude], 10);
-
-    console.log(
-      "After map initialization. Map Element:",
-      document.getElementById("map")
-    );
+    map = L.map("map").setView([parseInt(latitude), parseInt(longitude)], 10);
   });
 
-  // Ensure that latitude and longitude are valid numbers
   if (isNaN(latitude) || isNaN(longitude)) {
     console.error("Invalid latitude or longitude");
     return;
   }
 
-  // OpenWeatherMap Api Key
+  var intLatitude = parseInt(latitude);
+  var intLongitude = parseInt(longitude);
+
   var apiKey = "a89d772f92e60a988c309ad27ee68c1c";
-  // OpenWeatherMap URL
-  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${latitude}/${longitude}.png?appid=${apiKey}`;
+  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${intLatitude}/${intLongitude}.png?appid=${apiKey}`;
 
-  // Log the weatherMapURL to the console
   console.log("Weather Map URL:", weatherMapURL);
-  console.log("Latitude:", latitude);
-  console.log("Longitude:", longitude);
+  console.log("Latitude:", intLatitude);
+  console.log("Longitude:", intLongitude);
 
-  // Set the source of the weather map image
   $("#weatherMap").attr("src", weatherMapURL);
-
-  // Append the OpenStreetMap link to the card-section
   $(".card-section").append(openStreetMapLinkElement);
 }
 
-/* Local storage */
 function loadData() {
   var input = document.getElementById("address-search");
   var saveAddress = localStorage.getItem("listing");
