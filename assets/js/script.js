@@ -114,7 +114,6 @@ function displayClothingSuggestions(temperature, weatherCondition) {
       "</div></div>"
   );
 }
-
 /* Function start fetch geocode API & OpenWeatherMap API on click search button */
 function fetchHandler(event) {
   event.preventDefault();
@@ -253,49 +252,6 @@ function getMap(lat, long) {
   console.log("Map view updated.");
 }
 
-//getMap(latitude, longitude);
-
-// Initialize the Leaflet map for OpenWeatherMap
-/*function fetchWeatherMap(latitude, longitude) {
-  // Initialize the Leaflet map for OpenWeatherMap
-  console.log("Initializing map...");
-  /*
-
-
-
-  */
-
-/*
-  // Log the map link to the console
-  mapLink = `https://www.openstreetmap.org/#map=10/${latitude}/${longitude}`;
-  console.log("OpenStreetMap Link:", mapLink);
-
-  // Check if the map is already initialized
-  if (weatherMap) {
-    // Just update the view if it's already initialized
-    weatherMap.setView([latitude, longitude], 10);
-    console.log("Map view updated.");
-    return;
-  }
-
-
-
-  // Convert latitude and longitude to integers only for OpenWeatherMap
-  var owmLatitude = parseInt(latitude);
-  var owmLongitude = parseInt(longitude);
-
-
-
-  // Create the OpenWeatherMap URL
-  var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${owmLatitude}/${owmLongitude}.png?appid=${apiKey}`;
-
-  // Add OpenWeatherMap layer
-  //$("#weatherMap").attr("src", weatherMapURL);
-  //$("#weatherMap").attr("src", mapLink);
-  console.log("Map successfully loaded!");
-  }
-  */
-
 // Call fetchWeatherMap after the map is loaded
 function loadData() {
   var input = document.getElementById("address-search");
@@ -306,8 +262,6 @@ function loadData() {
 // Call fetchWeatherMap after the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM content loaded");
-  // Use appropriate values for layer and zoom
-  // fetchWeatherMap(latitude, longitude);
 });
 
 // Call loadData after the page is loaded
