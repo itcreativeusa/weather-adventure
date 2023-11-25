@@ -248,7 +248,7 @@ L.tileLayer(
 
 //weatherMap.setView([50.45, 30.52], 10);
 function getMap(lat, long) {
-  weatherMap.setView([lat, long], 10);
+  weatherMap.setView([lat, long], 5);
   console.log("Map view updated.");
 }
 
