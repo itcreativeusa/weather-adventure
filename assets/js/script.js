@@ -4,6 +4,8 @@ var longitude;
 var capitalizedAddress; // Capitalized address for display
 var button = document.querySelector("#button");
 button.addEventListener("click", fetchHandler); // Add event listener to button
+var weatherMap; // Declare weatherMap globally
+var mapLink; // Declare mapLink globally
 
 /* Function to display clothing suggestions */
 function displayClothingSuggestions(temperature, weatherCondition) {
@@ -155,13 +157,11 @@ function fetchHandler(event) {
           "&units=imperial&appid=a89d772f92e60a988c309ad27ee68c1c"
       );
     })
-    // Fetch the weather data
     .then(function (response) {
       return response.json();
     })
     .then(function (weatherData) {
       console.log("weather-response:", weatherData);
-
       /* Display or process the weather information */
       var temperature = parseInt(weatherData.main.temp);
       var weatherCondition = weatherData.weather[0].main;
@@ -197,8 +197,7 @@ function fetchHandler(event) {
       // Call displayClothingSuggestions
       displayClothingSuggestions(temperature, weatherCondition);
 
-      // Move the fetchWeatherMap call here
-      fetchWeatherMap(latitude, longitude);
+      getMap(latitude, longitude);
     })
     .catch((error) => {
       console.error("Error fetching weather or geocode data:", error);
@@ -228,55 +227,88 @@ $(".result-card").append(resultCardContent);
 var resultCardSection = "<div class='medium-6 cell card-section'></div>";
 $(".result-card-content").append(resultCardSection);
 var resultCardMap =
-  "<div class='medium-6 cell card-map'><img id='weatherMap' src='' alt='Weather Map'></div>";
+  "<div class='medium-6 cell card-map'><div id='weatherMap' alt='Weather Map'></div></div>";
 $(".result-card-content").append(resultCardMap);
-// Initialize the Leaflet map for OpenWeatherMap
-function fetchWeatherMap(latitude, longitude, layer, zoom) {
-  var layer = "clouds_new"; // Layer name
-  var zoom = 10; // Zoom level
-  var apiKey = "a89d772f92e60a988c309ad27ee68c1c"; // API key
 
+weatherMap = L.map("weatherMap");
+// Add OpenStreetMap layer
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution:
+    '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+}).addTo(weatherMap);
+var apiKey = "a89d772f92e60a988c309ad27ee68c1c"; // API key
+
+L.tileLayer(
+  "https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={apiKey}",
+  {
+    attribution: '<a href="https://openweathermap.org/">OpenWeather</a>',
+    layer: "clouds_new",
+    apiKey: apiKey,
+  }
+).addTo(weatherMap);
+
+//weatherMap.setView([50.45, 30.52], 10);
+function getMap(lat, long) {
+  weatherMap.setView([lat, long], 10);
+  console.log("Map view updated.");
+}
+
+//getMap(latitude, longitude);
+
+// Initialize the Leaflet map for OpenWeatherMap
+/*function fetchWeatherMap(latitude, longitude) {
+  // Initialize the Leaflet map for OpenWeatherMap
+  console.log("Initializing map...");
+  /*
+
+
+
+  */
+
+/*
   // Log the map link to the console
-  var mapLink = `https://www.openstreetmap.org/#map=10/${latitude}/${longitude}`;
+  mapLink = `https://www.openstreetmap.org/#map=10/${latitude}/${longitude}`;
   console.log("OpenStreetMap Link:", mapLink);
 
   // Check if the map is already initialized
-  if (typeof weatherMap !== "undefined") {
-    weatherMap.off(); // Unbind all events
-    weatherMap.remove(); // Remove the map
+  if (weatherMap) {
+    // Just update the view if it's already initialized
+    weatherMap.setView([latitude, longitude], 10);
+    console.log("Map view updated.");
+    return;
   }
 
-  // Initialize the Leaflet map for OpenWeatherMap
-  weatherMap = L.map("map").setView([latitude, longitude], 10);
+
 
   // Convert latitude and longitude to integers only for OpenWeatherMap
   var owmLatitude = parseInt(latitude);
   var owmLongitude = parseInt(longitude);
 
-  // Add OpenStreetMap layer
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors",
-  }).addTo(weatherMap);
+
 
   // Create the OpenWeatherMap URL
   var weatherMapURL = `https://tile.openweathermap.org/map/${layer}/${zoom}/${owmLatitude}/${owmLongitude}.png?appid=${apiKey}`;
 
   // Add OpenWeatherMap layer
-  $("#weatherMap").attr("src", weatherMapURL);
+  //$("#weatherMap").attr("src", weatherMapURL);
+  //$("#weatherMap").attr("src", mapLink);
   console.log("Map successfully loaded!");
-  console.log("OpenWeatherMap URL:", weatherMapURL);
-}
-// Call fetchWeatherMap after the DOM is loaded
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM content loaded");
-  // Use appropriate values for layer and zoom
-  fetchWeatherMap(latitude, longitude);
-});
+  }
+  */
+
 // Call fetchWeatherMap after the map is loaded
 function loadData() {
   var input = document.getElementById("address-search");
   var saveAddress = localStorage.getItem("listing");
   input.value = saveAddress;
 }
+
+// Call fetchWeatherMap after the DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM content loaded");
+  // Use appropriate values for layer and zoom
+  // fetchWeatherMap(latitude, longitude);
+});
+
 // Call loadData after the page is loaded
 loadData();
